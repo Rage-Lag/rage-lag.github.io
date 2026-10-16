@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Unreal Artist Portfolio</title>
+<title>Nithin S | Unreal Artist</title>
+<meta name="description" content="Unreal Engine artist specializing in ArchViz and real-time environments.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -72,12 +73,34 @@ nav ul a:hover{color:var(--accent)}
 .contact p{color:var(--muted);max-width:46ch;margin:-16px auto 32px}
 .contact .btns{justify-content:center}
 footer{text-align:center;color:var(--muted);font-size:13px;padding:28px 0;border-top:1px solid var(--line)}
+.card{cursor:pointer}.card:focus-visible{outline:2px solid var(--accent)}
+.view{margin-top:14px;color:var(--accent);font-size:13px}
+.detail{position:fixed;inset:0;z-index:50;background:var(--bg);overflow-y:auto;display:none;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.detail.on{display:block}
+.dwrap{max-width:960px;margin:0 auto;padding:32px 24px 80px}
+.close,.pn button{background:none;border:1px solid var(--line);color:var(--accent);padding:9px 18px;border-radius:8px;font:inherit;font-size:14px;cursor:pointer;margin-bottom:32px;transition:.2s}
+.close:hover,.pn button:hover{background:var(--accent-dim);border-color:var(--accent)}
+.dwrap h1{font-size:clamp(32px,5vw,52px);margin-bottom:20px}
+.dwrap h3{font-size:20px;margin:40px 0 16px}
+.meta{display:flex;gap:32px;flex-wrap:wrap;color:var(--muted);font-size:14px;margin-bottom:24px}
+.meta b{display:block;color:var(--accent);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:2px}
+.hero-img{width:100%;border-radius:14px;border:1px solid var(--line);margin-bottom:24px}
+.lead{color:var(--muted);font-size:17px;white-space:pre-line}
+.vids{display:grid;gap:20px}
+.vid{aspect-ratio:16/9;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#000}
+.vid iframe,.vid video{width:100%;height:100%;border:0}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.gal a{display:block;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--surface)}
+.gal img{width:100%;display:block;transition:.3s}.gal a:hover img{transform:scale(1.03)}
+.gal small{display:block;padding:10px 14px;color:var(--muted);font-size:13px}
+.empty{grid-column:1/-1;border:1px dashed var(--line);border-radius:12px;padding:40px;text-align:center;color:var(--muted)}
+.pn{display:flex;justify-content:space-between;margin-top:48px}.pn button{margin:0}
 </style>
 </head>
 <body>
 
 <nav><div class="wrap">
-  <a href="#top" class="logo" id="navName">Nithin<span>.</span>S</a>
+  <a href="#top" class="logo" id="navName">YOUR<span>.</span>NAME</a>
   <ul><li><a href="#work">Work</a></li><li><a href="#about">About</a></li><li><a href="#contact">Contact</a></li></ul>
 </div></nav>
 
@@ -131,6 +154,8 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:28px 0;border
 
 <footer>© <span id="yr"></span> <span id="footName">Your Name</span>. Built with passion in Unreal.</footer>
 
+<div class="detail" id="detail"><div class="dwrap" id="dbody"></div></div>
+
 <script>
 /* ===== EDIT YOUR DETAILS HERE ===== */
 const ME = {
@@ -138,9 +163,14 @@ const ME = {
   email: "nithinsuresh009@gmail.com",
   linkedin: "https://www.linkedin.com/in/nithin-s-1629b7193"
 };
-/* Add your works. image: put a URL or leave "" for a placeholder. */
+/* Add your works. Each project can have:
+   image    - card cover, e.g. "images/villa-cover.jpg" (or "" for placeholder)
+   year, role, overview - shown on the project page (overview can be several lines)
+   gallery  - ["images/a.jpg", {src:"images/b.jpg", caption:"Interior"}]
+   videos   - ["https://www.youtube.com/watch?v=XXXXXXXXXXX", "https://vimeo.com/123456789", "videos/demo.mp4"] */
 const WORKS = [
-  {title:"Modern Villa Walkthrough", cat:"ArchViz", desc:"Photoreal residential exterior and interior in UE5 with Lumen.", tools:["UE5","Lumen","Blender"], image:"", c:["#0e3a45","#0a0d10"]},
+  {title:"Modern Villa Walkthrough", cat:"ArchViz", desc:"Photoreal residential exterior and interior in UE5 with Lumen.", tools:["UE5","Lumen","Blender"], image:"", c:["#0e3a45","#0a0d10"],
+   year:"2025", role:"Lead Unreal Artist", overview:"Write the full story of this project here: the brief, your workflow, challenges and results.", gallery:[], videos:[]},
   {title:"Skyline Penthouse", cat:"ArchViz", desc:"Luxury penthouse with dynamic day-night lighting.", tools:["UE5","Datasmith","3ds Max"], image:"", c:["#123a52","#0a0d10"]},
   {title:"Overgrown Ruins", cat:"Environments", desc:"Stylized-realistic ruins with Nanite foliage and fog.", tools:["UE5","PCG","Substance"], image:"", c:["#0f4a40","#0a0d10"]},
   {title:"Sci-Fi Corridor", cat:"Environments", desc:"Modular sci-fi kit with emissive lighting and volumetrics.", tools:["UE5","Blender","Niagara"], image:"", c:["#0b4a5c","#0a0d10"]},
@@ -158,18 +188,51 @@ const cats=["All",...new Set(WORKS.map(w=>w.cat))];
 let active="All";
 function render(){
   $("filters").innerHTML=cats.map(c=>`<button class="${c===active?"on":""}" data-c="${c}">${c}</button>`).join("");
-  $("grid").innerHTML=WORKS.filter(w=>active==="All"||w.cat===active).map(w=>`
-    <article class="card">
+  $("grid").innerHTML=WORKS.map((w,i)=>({w,i})).filter(({w})=>active==="All"||w.cat===active).map(({w,i})=>`
+    <article class="card" tabindex="0" data-i="${i}">
       <div class="thumb" style="background:linear-gradient(135deg,${w.c[0]},${w.c[1]})">
         ${w.image?`<img src="${w.image}" alt="${w.title}" loading="lazy">`:""}
         <span class="tag">${w.cat}</span>
       </div>
       <div class="info"><h3>${w.title}</h3><p>${w.desc}</p>
-      <div class="tools">${w.tools.map(t=>`<span>${t}</span>`).join("")}</div></div>
+      <div class="tools">${w.tools.map(t=>`<span>${t}</span>`).join("")}</div><div class="view">View project →</div></div>
     </article>`).join("");
 }
 $("filters").addEventListener("click",e=>{const b=e.target.closest("button");if(b){active=b.dataset.c;render()}});
 render();
+
+/* ---- Project detail page ---- */
+const D=$("detail"),DB=$("dbody");
+function vid(u){let m;
+  if(m=u.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]{11})/))return `<iframe src="https://www.youtube.com/embed/${m[1]}" allowfullscreen loading="lazy"></iframe>`;
+  if(m=u.match(/vimeo\.com\/(\d+)/))return `<iframe src="https://player.vimeo.com/video/${m[1]}" allowfullscreen loading="lazy"></iframe>`;
+  return `<video src="${u}" controls preload="metadata"></video>`;
+}
+function openWork(i){
+  const w=WORKS[i],g=(w.gallery||[]).map(x=>typeof x==="string"?{src:x}:x),v=w.videos||[],n=WORKS.length;
+  DB.innerHTML=`<button class="close" data-close>← Back to projects</button>
+  <div class="eyebrow">${w.cat}${w.year?" · "+w.year:""}</div><h1>${w.title}</h1>
+  <div class="meta">${w.role?`<span><b>Role</b>${w.role}</span>`:""}<span><b>Tools</b>${w.tools.join(", ")}</span></div>
+  ${w.image?`<img class="hero-img" src="${w.image}" alt="${w.title}">`:""}
+  <p class="lead">${w.overview||w.desc}</p>
+  ${v.length?`<h3>Videos</h3><div class="vids">${v.map(u=>`<div class="vid">${vid(u)}</div>`).join("")}</div>`:""}
+  <h3>Gallery</h3><div class="gal">${g.length?g.map(x=>`<a href="${x.src}" target="_blank" rel="noopener"><img src="${x.src}" alt="${x.caption||w.title}" loading="lazy">${x.caption?`<small>${x.caption}</small>`:""}</a>`).join(""):`<div class="empty">Add images to this project's gallery list</div>`}</div>
+  <div class="pn"><button data-n="${(i+n-1)%n}">← Previous</button><button data-n="${(i+1)%n}">Next →</button></div>`;
+  D.classList.add("on");document.body.style.overflow="hidden";D.scrollTop=0;
+}
+function route(){
+  const m=location.hash.match(/^#work-(\d+)$/);
+  if(m&&WORKS[m[1]])openWork(+m[1]);
+  else{D.classList.remove("on");document.body.style.overflow=""}
+}
+$("grid").addEventListener("click",e=>{const c=e.target.closest(".card");if(c)location.hash="work-"+c.dataset.i});
+$("grid").addEventListener("keydown",e=>{if(e.key==="Enter"){const c=e.target.closest(".card");if(c)location.hash="work-"+c.dataset.i}});
+DB.addEventListener("click",e=>{
+  if(e.target.closest("[data-close]")){history.pushState(null,"",location.pathname+location.search);route()}
+  const b=e.target.closest("[data-n]");if(b)location.hash="work-"+b.dataset.n;
+});
+addEventListener("keydown",e=>{if(e.key==="Escape"&&D.classList.contains("on")){history.pushState(null,"",location.pathname+location.search);route()}});
+addEventListener("hashchange",route);route();
 </script>
 </body>
 </html>
