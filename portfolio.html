@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Unreal Artist Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0d10;--surface:#12171c;--line:#1f2830;--text:#e6edf3;--muted:#8b98a5;--accent:#22d3ee;--accent-dim:rgba(34,211,238,.14);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;line-height:1.6}
+h1,h2,h3{font-family:'Space Grotesk',Inter,sans-serif;margin:0;letter-spacing:-.02em}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+section{padding:96px 0}
+.eyebrow{color:var(--accent);font:500 13px 'Space Grotesk',sans-serif;letter-spacing:.18em;text-transform:uppercase;margin-bottom:12px}
+h2{font-size:clamp(28px,4vw,40px);margin-bottom:40px}
+
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(10,13,16,.8);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;justify-content:space-between;align-items:center;height:64px}
+.logo{font:700 18px 'Space Grotesk',sans-serif}.logo span{color:var(--accent)}
+nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0;font-size:14px;color:var(--muted)}
+nav ul a:hover{color:var(--accent)}
+@media(max-width:560px){nav ul{gap:16px;font-size:13px}}
+
+.hero{min-height:88vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:80px 0}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 400px at 80% 20%,var(--accent-dim),transparent 70%),linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:auto,56px 56px,56px 56px;mask-image:radial-gradient(ellipse at 70% 30%,#000 10%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse at 70% 30%,#000 10%,transparent 75%);opacity:.7}
+.hero .wrap{position:relative}
+.hero h1{font-size:clamp(40px,7vw,80px);line-height:1.05;max-width:14ch}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero p{color:var(--muted);font-size:18px;max-width:52ch;margin:24px 0 36px}
+.btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn{padding:13px 26px;border-radius:8px;font-weight:500;font-size:15px;border:1px solid var(--accent);transition:.2s}
+.btn.primary{background:var(--accent);color:#04161a}.btn.primary:hover{box-shadow:0 0 28px rgba(34,211,238,.45)}
+.btn.ghost{color:var(--accent)}.btn.ghost:hover{background:var(--accent-dim)}
+
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px}
+.filters button{background:none;border:1px solid var(--line);color:var(--muted);padding:8px 18px;border-radius:999px;font:inherit;font-size:14px;cursor:pointer;transition:.2s}
+.filters button:hover{color:var(--text)}
+.filters button.on{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:24px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:.25s}
+.card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 12px 40px rgba(34,211,238,.1)}
+.thumb{aspect-ratio:16/10;position:relative;display:flex;align-items:flex-end;padding:14px;overflow:hidden}
+.thumb::after{content:"Add image";position:absolute;inset:0;display:grid;place-items:center;color:rgba(255,255,255,.28);font-size:13px;letter-spacing:.1em;text-transform:uppercase}
+.thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.tag{position:relative;z-index:2;font-size:11px;letter-spacing:.1em;text-transform:uppercase;background:rgba(10,13,16,.75);border:1px solid var(--accent);color:var(--accent);padding:4px 10px;border-radius:999px}
+.card .info{padding:20px}
+.card h3{font-size:19px;margin-bottom:6px}
+.card p{margin:0 0 14px;color:var(--muted);font-size:14px}
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+.tools span{font-size:12px;color:var(--muted);background:#0c1116;border:1px solid var(--line);padding:3px 9px;border-radius:6px}
+
+.about{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+@media(max-width:800px){.about{grid-template-columns:1fr;gap:32px}section{padding:72px 0}}
+.about p{color:var(--muted);margin:0 0 18px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
+.stat{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:16px}
+.stat b{display:block;font:700 28px 'Space Grotesk',sans-serif;color:var(--accent)}
+.stat small{color:var(--muted);font-size:12px}
+.skills{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px}
+.skills h3{font-size:16px;margin-bottom:18px}
+.skill{margin-bottom:16px}
+.skill div{display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px}
+.skill i{display:block;height:5px;border-radius:5px;background:#1b232b;overflow:hidden}
+.skill i::before{content:"";display:block;height:100%;width:var(--w);background:linear-gradient(90deg,var(--accent),#67e8f9)}
+
+.contact{text-align:center;border-top:1px solid var(--line);background:radial-gradient(500px 260px at 50% 0,var(--accent-dim),transparent 70%)}
+.contact p{color:var(--muted);max-width:46ch;margin:-16px auto 32px}
+.contact .btns{justify-content:center}
+footer{text-align:center;color:var(--muted);font-size:13px;padding:28px 0;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a href="#top" class="logo" id="navName">YOUR<span>.</span>NAME</a>
+  <ul><li><a href="#work">Work</a></li><li><a href="#about">About</a></li><li><a href="#contact">Contact</a></li></ul>
+</div></nav>
+
+<header class="hero" id="top"><div class="wrap">
+  <div class="eyebrow">Unreal Engine Artist</div>
+  <h1>Building real-time <em>worlds</em> that feel real.</h1>
+  <p>ArchViz and environment artist with 3+ years in Unreal Engine, turning designs into immersive, photoreal experiences.</p>
+  <div class="btns"><a href="#work" class="btn primary">View my work</a><a href="#contact" class="btn ghost">Get in touch</a></div>
+</div></header>
+
+<section id="work"><div class="wrap">
+  <div class="eyebrow">Selected Work</div>
+  <h2>Projects</h2>
+  <div class="filters" id="filters"></div>
+  <div class="grid" id="grid"></div>
+</div></section>
+
+<section id="about"><div class="wrap">
+  <div class="eyebrow">About</div>
+  <h2>Hi, I'm <span id="aboutName" style="color:var(--accent)">Your Name</span></h2>
+  <div class="about">
+    <div>
+      <p>I'm an Unreal Engine artist with over three years of experience creating architectural visualizations, environments and interactive real-time scenes.</p>
+      <p>I care about lighting, materials and atmosphere, and about making sure every scene runs smoothly while still looking stunning. I'm open to ArchViz and Unreal Artist roles in Bangalore and abroad.</p>
+      <div class="stats">
+        <div class="stat"><b>3+</b><small>Years in Unreal</small></div>
+        <div class="stat"><b>20+</b><small>Projects delivered</small></div>
+        <div class="stat"><b>UE5</b><small>Lumen · Nanite</small></div>
+      </div>
+    </div>
+    <div class="skills">
+      <h3>Toolkit</h3>
+      <div class="skill"><div><span>Unreal Engine 5</span><span>95%</span></div><i style="--w:95%"></i></div>
+      <div class="skill"><div><span>Lighting &amp; Lumen</span><span>90%</span></div><i style="--w:90%"></i></div>
+      <div class="skill"><div><span>Materials &amp; Shaders</span><span>85%</span></div><i style="--w:85%"></i></div>
+      <div class="skill"><div><span>3D Modeling (Blender / 3ds Max)</span><span>80%</span></div><i style="--w:80%"></i></div>
+      <div class="skill"><div><span>Blueprints &amp; Dev</span><span>70%</span></div><i style="--w:70%"></i></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="contact" id="contact"><div class="wrap">
+  <div class="eyebrow">Contact</div>
+  <h2>Let's build something together</h2>
+  <p>Open to full-time roles and freelance projects. Reach out and I'll get back to you soon.</p>
+  <div class="btns">
+    <a class="btn primary" id="emailBtn" href="#">Email me</a>
+    <a class="btn ghost" id="liBtn" href="#" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+</div></section>
+
+<footer>© <span id="yr"></span> <span id="footName">Your Name</span>. Built with passion in Unreal.</footer>
+
+<script>
+/* ===== EDIT YOUR DETAILS HERE ===== */
+const ME = {
+  name: "Your Name",
+  email: "you@example.com",
+  linkedin: "https://www.linkedin.com/in/your-profile"
+};
+/* Add your works. image: put a URL or leave "" for a placeholder. */
+const WORKS = [
+  {title:"Modern Villa Walkthrough", cat:"ArchViz", desc:"Photoreal residential exterior and interior in UE5 with Lumen.", tools:["UE5","Lumen","Blender"], image:"", c:["#0e3a45","#0a0d10"]},
+  {title:"Skyline Penthouse", cat:"ArchViz", desc:"Luxury penthouse with dynamic day-night lighting.", tools:["UE5","Datasmith","3ds Max"], image:"", c:["#123a52","#0a0d10"]},
+  {title:"Overgrown Ruins", cat:"Environments", desc:"Stylized-realistic ruins with Nanite foliage and fog.", tools:["UE5","PCG","Substance"], image:"", c:["#0f4a40","#0a0d10"]},
+  {title:"Sci-Fi Corridor", cat:"Environments", desc:"Modular sci-fi kit with emissive lighting and volumetrics.", tools:["UE5","Blender","Niagara"], image:"", c:["#0b4a5c","#0a0d10"]},
+  {title:"Interactive Configurator", cat:"Dev", desc:"Blueprint-driven material and furniture configurator.", tools:["Blueprints","UMG"], image:"", c:["#1a3a5a","#0a0d10"]},
+  {title:"Real-time Product Demo", cat:"Dev", desc:"Packaged interactive demo optimized for 60fps.", tools:["UE5","C++"], image:"", c:["#0d4350","#0a0d10"]}
+];
+/* =================================== */
+
+const $=id=>document.getElementById(id);
+$("navName").innerHTML=ME.name.split(" ")[0].toUpperCase()+"<span>.</span>"+ME.name.split(" ").slice(1).join(" ").toUpperCase();
+$("aboutName").textContent=ME.name;$("footName").textContent=ME.name;$("yr").textContent=new Date().getFullYear();
+$("emailBtn").href="mailto:"+ME.email;$("liBtn").href=ME.linkedin;
+
+const cats=["All",...new Set(WORKS.map(w=>w.cat))];
+let active="All";
+function render(){
+  $("filters").innerHTML=cats.map(c=>`<button class="${c===active?"on":""}" data-c="${c}">${c}</button>`).join("");
+  $("grid").innerHTML=WORKS.filter(w=>active==="All"||w.cat===active).map(w=>`
+    <article class="card">
+      <div class="thumb" style="background:linear-gradient(135deg,${w.c[0]},${w.c[1]})">
+        ${w.image?`<img src="${w.image}" alt="${w.title}" loading="lazy">`:""}
+        <span class="tag">${w.cat}</span>
+      </div>
+      <div class="info"><h3>${w.title}</h3><p>${w.desc}</p>
+      <div class="tools">${w.tools.map(t=>`<span>${t}</span>`).join("")}</div></div>
+    </article>`).join("");
+}
+$("filters").addEventListener("click",e=>{const b=e.target.closest("button");if(b){active=b.dataset.c;render()}});
+render();
+</script>
+</body>
+</html>
